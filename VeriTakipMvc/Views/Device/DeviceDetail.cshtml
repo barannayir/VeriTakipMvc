@@ -1,0 +1,66 @@
+﻿@using VeriTakipMvc.ViewNodels
+@model DeviceViewModel
+<head>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<div class="card-header">
+    <h3 class="card-title">Edit Device</h3>
+</div>
+<input type="hidden" id="cookieValue" value="@ViewBag.cookieValue" />
+
+<form action="/Device/DeviceDetail" method="POST">
+    <div class="form-group">
+        <label for="deviceName">Device Name:</label>
+        <input type="text" class="form-control form-control-border" name="DeviceName" id="exampleInputBorder" placeholder="@Model.DeviceName" value="@Model.DeviceName @if  (Model.IsDeviceOnAlert) {
+        <span class=" badge badge-danger">Alert</span>
+        }"disabled>
+        <label for="deviceGroup">Device Group:</label>
+        <input type="text" class="form-control form-control-border" name="DeviceGroup" id="exampleInputBorder" placeholder="@Model.DeviceGroup" value="@Model.DeviceGroup" disabled>
+        @Html.HiddenFor(model => model.DeviceId)
+        @Html.HiddenFor(model => model.CompanyId)
+
+        <label for="TemperatureC">Sıcaklık: @Model.TemperatureC</label><br />
+        <label for="RelayStatus">Röle:</label>
+        <input type="checkbox" id="toggleRelay" data-toggle="toggle" data-size="mini" data-on="Açık" data-off="Kapalı" data-onstyle="success" data-offstyle="danger" @(Model.RelayStatus == true ? "checked" : "")>
+
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+        var cookieValue = $("#cookieValue").val();
+    $('#toggleRelay').change(function () {
+        var relayStatus = $(this).prop('checked') ? 'on' : 'off';
+        console.log(relayStatus);
+        // relayStatus değişkeni, switch'in yeni durumunu belirtir
+                        $.ajax({
+                        type: 'POST',
+                        url: 'https://localhost:44301/api/Home/CmdCreate', // API'nin adresini buraya yazabilirsin.
+                        headers: {
+                            'Authorization': 'Bearer ' + cookieValue,
+                            'Content-Type': 'application/json'
+                        },
+                        data: JSON.stringify({
+                        DeviceId: '@Model.DeviceId',
+                        CommandName: 'role',
+                        CommandParameter: relayStatus ,
+                        CommandStatus: false,
+                        Date: new Date()
+        }),
+                        success: function (result) {
+                            // İşlem başarılı olursa burada yapılacak işlemler.
+                            console.log(result);
+                        },
+                        error: function (xhr, status, error) {
+                            // İşlem başarısız olursa burada yapılacak işlemler.
+                            console.log(xhr.responseText);
+                        }
+                    });
+    });
+</script>

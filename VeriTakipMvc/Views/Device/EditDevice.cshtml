@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using VeriTakipMvc.Models
+@model Device
+
+
+<div class="card-header">
+    <h3 class="card-title">Edit Device</h3>
+</div>
+
+
+<form action="/Device/EditDevice" method="POST">
+<div class="form-group">   
+<label for="deviceName">Device Name:</label>
+        <input type="text" class="form-control form-control-border" name="DeviceName" id="exampleInputBorder" placeholder="@Model.DeviceName" value="@Model.DeviceName">
+
+        <label for="deviceGroup">Device Group:</label>
+        <input type="text" class="form-control form-control-border" name="DeviceGroup" id="exampleInputBorder" placeholder="@Model.DeviceGroup" value="@Model.DeviceGroup">
+                         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CompanyId)
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>
+</form>
