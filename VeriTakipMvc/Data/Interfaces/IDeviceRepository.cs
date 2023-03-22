@@ -8,7 +8,8 @@ namespace VeriTakipMvc.Data.Interfaces
         Task CreateDevice(Device device);
         Task DeleteDevice(int id);
         Task<Device> GetDevice(int id);
-        Task<List<Device>> GetDevices(int compId);
+        Task<List<Device>> GetDevices();
+        Task<List<Device>> GetDevicesByCompId(int compId);
         Task UpdateDevice(Device device);
 
         public Task<List<DeviceData>> GetDeviceDatas(int compid);

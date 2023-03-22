@@ -37,9 +37,9 @@ namespace VeriTakipMvc.Controllers
 		[HttpPost]
 		public IActionResult AddDevice(Device device)
 		{
-			//var company = _userManager.GetUserAsync(User).Result.CompanyId;
-			//device.CompanyId = company.CompanyId;
-			//_deviceRepository.AddDevice(device);
+			var company = _userManager.GetUserAsync(User).Result.CompanyId;
+            device.CompanyId = company;
+			_deviceRepository.CreateDevice(device);
 			return RedirectToAction("Index");
 		}
         public async Task<IActionResult> DeviceDetail(int id)

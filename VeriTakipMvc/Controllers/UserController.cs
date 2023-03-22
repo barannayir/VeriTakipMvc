@@ -62,7 +62,8 @@ namespace VeriTakipMvc.Controllers
 			await _signInManager.SignOutAsync();
 			return Redirect("/User/Index/");
 		}
-		
+
+
 		[AllowAnonymous]
         [HttpPost]
         public IActionResult SignUp(UserRegisterModel model)

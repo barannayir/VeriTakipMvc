@@ -8,7 +8,6 @@ namespace VeriTakipMvc.Models
         public int CompanyId { get; set; }
         public string? Companyname { get; set; }
         public string? CompanyEmail { get; set; }
-        public List<Device> Devices { get; set; }
 
     }
 }

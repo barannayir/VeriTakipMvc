@@ -1,0 +1,23 @@
+﻿@using VeriTakipMvc.Models
+@model AppUser
+
+
+<div class="card-header">
+    <h3 class="card-title">Edit Company</h3>
+</div>
+
+
+<form action="/Admin/UpdateUser" method="POST">
+    <div class="form-group">
+        <label for="UserName">User Name:</label>
+        <input type="text" class="form-control form-control-border" name="UserName" id="exampleInputBorder" placeholder="@Model.UserName" value="@Model.UserName">
+
+        <label for="Email">User Mail:</label>
+        <input type="text" class="form-control form-control-border" name="Email" id="exampleInputBorder" placeholder="@Model.Email" value="@Model.Email">
+
+        @Html.HiddenFor(model => model.CompanyId)
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>

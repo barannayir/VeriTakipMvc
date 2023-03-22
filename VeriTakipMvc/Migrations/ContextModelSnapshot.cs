@@ -295,6 +295,9 @@ namespace VeriTakipMvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeviceInstalled")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeviceOnAlert")
                         .HasColumnType("bit");
 

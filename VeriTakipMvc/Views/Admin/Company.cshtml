@@ -1,8 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@using VeriTakipMvc.ViewNodels
-@model IEnumerable<DeviceViewModel>
+﻿@using VeriTakipMvc.ViewNodels;
+@model CompanyViewModel
+
 
 <head>
     <!-- jQuery CDN -->
@@ -14,88 +12,75 @@
 <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <div class="col-sm-6"><h3 class="card-title"><h3>Cihaz Listesi</h3></div>
-     @*       <div class="col-sm-3 offset-sm-10">
-                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-sm">Cihaz Ekle</button>
+            <div class="col-sm-6"><h3 class="card-title"><h3>Company List</h3></div>
+            <div class="col-sm-3 offset-sm-10">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                    Cihaz Ekle
+                    Şirket Ekle
                 </button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Yeni Cihaz</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="/Device/DeviceDetail" method="POST">
+                            <form asp-controller="Admin" asp-action="AddCompany" method="post" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Yeni Şirket</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="deviceName">Device Name:</label>
-                                        <input type="text" class="form-control form-control-border" name="DeviceName" id="exampleInputBorder" placeholder="Cihaz Adı" value="">
+                                        <label asp-for="Company.Companyname">Company Name:</label>
+                                        <input asp-for="Company.Companyname" type="text" class="form-control form-control-border" name="Companyname" id="exampleInputBorder" placeholder="CompanyName" value="">
 
-                                        <label for="deviceName">Device Group:</label>
-                                        <input type="text" class="form-control form-control-border" name="DeviceName" id="exampleInputBorder" placeholder="Cihaz Grubu" value="">
-
-                                
-
+                                        <label asp-for="Company.CompanyEmail">Company Email:</label>
+                                        <input asp-for="Company.CompanyEmail" type="text" class="form-control form-control-border" name="CompanyEmail" id="exampleInputBorder" placeholder="Company Email" value="">
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
         </div>
 
         <div class="card-body">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>DeviceId</th>
-                        <th>Device Name</th>
-                        <th>DeviceLocation</th>
-                        <th>Status</th>
+                        <th>CompanyId</th>
+                        <th>Company Name</th>
+                        <th>Company Email</th>
                     </tr>
                 </thead>
                 <input type="hidden" id="cookieValue" value="@ViewBag.cookieValue" />
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var company in Model.Companies)
                     {
 
                         <tr data-widget="expandable-table" aria-expanded="false">
-                            <td>@item.DeviceId</td>
-                            <td>@item.DeviceName</td>
-                            <td>@item.DeviceGroup</td>
-                            <td>@item.IsDeviceOnAlert</td>
+                            <td>@company.CompanyId</td>
+                            <td>@company.Companyname</td>
+                            <td>@company.CompanyEmail</td>
                         </tr>
                         <tr class="expandable-body d-none">
-                            @if (item.TemperatureC != null && item.RelayStatus != null)
-                            {
-                            <tr>
-                                <td>@item.TemperatureC</td>
-                                <td>@item.RelayStatus</td>
-                            </tr>
-                            }
                     <td></td>
                     <td>
 
                                 @*<button type="button" id="detailsButton-@item.DeviceId" class="btn btn-block btn-primary details-button">Detay Görüntüle</button>*@
-                        <a asp-action="DeviceDetail" class="btn btn-block btn-primary details-button" asp-route-id="@item.DeviceId">Detay</a>
+                                <a asp-action="CompanyDetail" class="btn btn-block btn-primary details-button" asp-route-id="@company.CompanyId">Detay</a>
 
                     </td>
                     <td>
-                        <a asp-action="EditDevice" class="btn btn-block btn-warning" asp-route-id="@item.DeviceId"><i class="fa fa-marker"></i></a>
+                                <a asp-action="EditCompany" class="btn btn-block btn-warning" asp-route-id="@company.CompanyId"><i class="fa fa-marker"></i></a>
                     </td>
                     <td>
 
-                        <form method="post" asp-action="Delete" asp-route-id="@item.DeviceId">
-                            <input type="hidden" name="deviceId" value="@item.DeviceId" />
+                                <form method="post" asp-action="DeleteCompany" asp-route-id="@company.CompanyId">
+                                    <input type="hidden" name="deviceId" value="@company.CompanyId" />
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('Are you sure you want to delete this?')"></i></button>
                         </form>
                     </td>

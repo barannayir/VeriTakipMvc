@@ -17,9 +17,11 @@ namespace VeriTakipMvc.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-			optionsBuilder.UseSqlServer(connectionString: @"Server=BARAN\SQLEXPRESS;Database=VeriTakip;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;TrustServerCertificate=true");
+			//optionsBuilder.UseSqlServer(connectionString: @"Server=BARAN\SQLEXPRESS;Database=VeriTakip;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;TrustServerCertificate=true");
 			//options.UseSqlServer("Server=213.32.46.87;Database=Helpdesk;User=helpdesk_user;Password=xcoGSSlzsGTcurhUu1;");
+            optionsBuilder.UseSqlServer(@"Data Source=sql.bsite.net\MSSQL2016;User ID=baran_veritakip;Password=deneme;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
 		}
 
-    }
+	}
 }

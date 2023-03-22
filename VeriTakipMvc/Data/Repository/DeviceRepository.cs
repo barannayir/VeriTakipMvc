@@ -41,7 +41,7 @@ namespace VeriTakipMvc.Data.Repository
 
         }
 
-        public async Task<List<Device>> GetDevices(int compId)
+        public async Task<List<Device>> GetDevicesByCompId(int compId)
         {
             return await _context.Devices.Where(x => x.CompanyId == compId).ToListAsync();
         }
@@ -93,5 +93,9 @@ namespace VeriTakipMvc.Data.Repository
             return _context.SaveChangesAsync();
         }
 
+        public Task<List<Device>> GetDevices()
+        {
+            return _context.Devices.ToListAsync();
+        }
     }
 }

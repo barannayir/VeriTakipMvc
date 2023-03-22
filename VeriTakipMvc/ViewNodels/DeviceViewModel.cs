@@ -9,6 +9,7 @@ namespace VeriTakipMvc.ViewNodels
         public string DeviceName { get; set; }
         public string DeviceGroup { get; set; }
         public bool IsDeviceOnAlert { get; set; }
+        public bool IsDeviceInstalled { get; set; } 
         public int TemperatureC { get; set; }
         public bool RelayStatus { get; set; }
 

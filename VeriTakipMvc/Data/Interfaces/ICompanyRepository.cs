@@ -8,5 +8,6 @@ namespace VeriTakipMvc.Data.Interfaces
 		Task DeleteCompany(int id);
 		Task<Company> GetCompany(int id);
 		Task UpdateCompany(Company company);
-	}
+        Task<List<Company>> GetCompanies();
+    }
 }

@@ -12,8 +12,8 @@ using VeriTakipMvc.Data;
 namespace VeriTakipMvc.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230313151802_Migr")]
-    partial class Migr
+    [Migration("20230320084310_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,6 +229,37 @@ namespace VeriTakipMvc.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("VeriTakipMvc.Models.Command", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CommandName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommandParameter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CommandStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Commands");
+                });
+
             modelBuilder.Entity("VeriTakipMvc.Models.Company", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -267,6 +298,9 @@ namespace VeriTakipMvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeviceInstalled")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeviceOnAlert")
                         .HasColumnType("bit");
 
@@ -275,6 +309,31 @@ namespace VeriTakipMvc.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Devices");
+                });
+
+            modelBuilder.Entity("VeriTakipMvc.Models.DeviceData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RelayStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TemperatureC")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeviceDatas");
                 });
 
             modelBuilder.Entity("VeriTakipMvc.Models.UserLevel", b =>
