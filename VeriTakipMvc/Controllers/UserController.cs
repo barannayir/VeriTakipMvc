@@ -45,8 +45,7 @@ namespace VeriTakipMvc.Controllers
                     Response.Cookies.Append("jwt", token, cookieOptions);
 
                     HttpContext.Session.SetString("jwt", token);
-
-                    return Redirect("/Device/Index/");
+					return Redirect("/Device/Index/");
                 }
                 else
                 {

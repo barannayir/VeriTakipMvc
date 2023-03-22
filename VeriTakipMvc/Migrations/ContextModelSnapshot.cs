@@ -295,15 +295,10 @@ namespace VeriTakipMvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeviceInstalled")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeviceOnAlert")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Devices");
                 });
@@ -423,15 +418,6 @@ namespace VeriTakipMvc.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VeriTakipMvc.Models.Device", b =>
-                {
-                    b.HasOne("VeriTakipMvc.Models.Company", null)
-                        .WithMany("Devices")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("VeriTakipMvc.Models.UserOfLevel", b =>
                 {
                     b.HasOne("VeriTakipMvc.Models.AppUser", "AppUser")
@@ -454,11 +440,6 @@ namespace VeriTakipMvc.Migrations
             modelBuilder.Entity("VeriTakipMvc.Models.AppUser", b =>
                 {
                     b.Navigation("UserOfLevels");
-                });
-
-            modelBuilder.Entity("VeriTakipMvc.Models.Company", b =>
-                {
-                    b.Navigation("Devices");
                 });
 
             modelBuilder.Entity("VeriTakipMvc.Models.UserLevel", b =>

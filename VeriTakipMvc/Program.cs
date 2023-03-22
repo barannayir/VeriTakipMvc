@@ -88,9 +88,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
-app.UseAuthentication();
 app.UseSession();
 app.MapControllerRoute(
     name: "default",

@@ -7,8 +7,8 @@ using VeriTakipMvc.ViewNodels;
 
 namespace VeriTakipMvc.Controllers
 {
-	
 
+	[Authorize(Roles = "admin")]
 	public class AdminController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
@@ -29,7 +29,7 @@ namespace VeriTakipMvc.Controllers
             return View();
         }
 
-		[Authorize(Roles = "admin")]
+
 		public async Task<IActionResult> CompanyAsync()
         {
           

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VeriTakipMvc.Migrations
 {
     /// <inheritdoc />
-    public partial class mig1 : Migration
+    public partial class MigA : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,6 +98,22 @@ namespace VeriTakipMvc.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeviceDatas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Devices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceGroup = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeviceOnAlert = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Devices", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,29 +236,6 @@ namespace VeriTakipMvc.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Devices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    DeviceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DeviceGroup = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDeviceOnAlert = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeviceInstalled = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Devices_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserOfLevels",
                 columns: table => new
                 {
@@ -308,11 +301,6 @@ namespace VeriTakipMvc.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Devices_CompanyId",
-                table: "Devices",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserOfLevels_Id",
                 table: "UserOfLevels",
                 column: "Id");
@@ -345,6 +333,9 @@ namespace VeriTakipMvc.Migrations
                 name: "Commands");
 
             migrationBuilder.DropTable(
+                name: "Companies");
+
+            migrationBuilder.DropTable(
                 name: "DeviceDatas");
 
             migrationBuilder.DropTable(
@@ -355,9 +346,6 @@ namespace VeriTakipMvc.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
