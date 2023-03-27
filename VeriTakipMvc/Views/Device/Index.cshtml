@@ -68,7 +68,7 @@
                     @foreach (var item in Model)
                     {
 
-                        <tr data-widget="expandable-table" aria-expanded="false">
+                        <tr data-widget="expandable-table" aria-expanded="false" class="@(!item.IsDeviceConnected ? "table-danger" : "")">
                             <td>@item.DeviceId</td>
                             <td>@item.DeviceName</td>
                             <td>@item.DeviceGroup</td>

@@ -52,7 +52,13 @@ namespace VeriTakipMvc.Data.Repository
         public async Task<IEnumerable<DeviceViewModel>> GetDeviceViewModels(int compId)
         {
             var devices = await _context.Devices.Where(x => x.CompanyId == compId).ToListAsync();
-            var deviceDatas = await _context.DeviceDatas.Where(x => x.CompanyId == compId).ToListAsync();
+            //var deviceDatas = await _context.DeviceDatas.Where(x => x.CompanyId == compId).ToListAsync();
+            var deviceDatas = await _context.DeviceDatas
+    .Where(x => x.CompanyId == compId)
+    .GroupBy(x => x.DeviceId)
+    .Select(g => g.OrderByDescending(x => x.DataDateTime).FirstOrDefault())
+    .ToListAsync();
+
 
             var deviceViewModels = devices.Select(d => new DeviceViewModel
             {
@@ -62,7 +68,8 @@ namespace VeriTakipMvc.Data.Repository
                 DeviceGroup = d.DeviceGroup,
                 IsDeviceOnAlert = d.IsDeviceOnAlert,
                 TemperatureC = deviceDatas.FirstOrDefault(dd => dd.DeviceId == d.Id)?.TemperatureC ?? 0,
-                RelayStatus = deviceDatas.FirstOrDefault(dd => dd.DeviceId == d.Id)?.RelayStatus ?? false
+                RelayStatus = deviceDatas.FirstOrDefault(dd => dd.DeviceId == d.Id)?.RelayStatus ?? false,
+                IsDeviceConnected = deviceDatas.FirstOrDefault(dd => dd.DeviceId == d.Id)?.DataDateTime > DateTime.Now.AddMinutes(-330)
             });
 
             return deviceViewModels;
@@ -71,7 +78,10 @@ namespace VeriTakipMvc.Data.Repository
         public async Task<DeviceViewModel> GetDeviceViewModel(int deviceId, int compId)
         {
             var device = await _context.Devices.FindAsync(deviceId);
-            var deviceData = await _context.DeviceDatas.FindAsync(deviceId);
+            var deviceData = await _context.DeviceDatas
+         .Where(x => x.DeviceId == deviceId)
+         .OrderByDescending(x => x.DataDateTime)
+         .FirstOrDefaultAsync();
             if (device.CompanyId == compId)
             {
             var deviceViewModel = new DeviceViewModel
@@ -82,7 +92,9 @@ namespace VeriTakipMvc.Data.Repository
                 DeviceGroup = device.DeviceGroup,
                 IsDeviceOnAlert = device.IsDeviceOnAlert,
                 TemperatureC = deviceData?.TemperatureC ?? 0,
-                RelayStatus = deviceData?.RelayStatus ?? false
+                RelayStatus = deviceData?.RelayStatus ?? false,
+                IsDeviceConnected = deviceData?.DataDateTime > DateTime.Now.AddMinutes(-330)
+
             };
             return deviceViewModel;
             }

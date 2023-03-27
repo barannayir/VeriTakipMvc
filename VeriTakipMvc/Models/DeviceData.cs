@@ -7,5 +7,7 @@
         public int CompanyId { get; set; }
         public int TemperatureC { get; set; }
         public bool RelayStatus { get; set; }
+        public DateTime DataDateTime { get; set; }
+        
     }
 }

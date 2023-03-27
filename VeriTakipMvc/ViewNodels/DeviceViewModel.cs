@@ -12,6 +12,6 @@ namespace VeriTakipMvc.ViewNodels
         public bool IsDeviceInstalled { get; set; } 
         public int TemperatureC { get; set; }
         public bool RelayStatus { get; set; }
-
+        public bool IsDeviceConnected { get; set; }
     }
 }
