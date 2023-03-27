@@ -47,7 +47,7 @@ namespace VeriTakipMvc.Controllers
             string cookieValue = Request.Cookies["jwt"];
             ViewBag.cookieValue = cookieValue;
             var company = _userManager.GetUserAsync(HttpContext.User).Result.CompanyId;
-            var deviceViewModels = await _deviceRepository.GetDeviceViewModel(company);
+            var deviceViewModels = await _deviceRepository.GetDeviceViewModel(id, company);
             return View(deviceViewModels);
         }
 

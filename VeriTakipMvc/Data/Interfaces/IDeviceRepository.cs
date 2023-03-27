@@ -15,7 +15,7 @@ namespace VeriTakipMvc.Data.Interfaces
         public Task<List<DeviceData>> GetDeviceDatas(int compid);
         Task<DeviceData> GetDeviceData(int deviceId);
         Task<IEnumerable<DeviceViewModel>> GetDeviceViewModels(int compId);
-        public Task<DeviceViewModel> GetDeviceViewModel(int deviceId);
+        public Task<DeviceViewModel> GetDeviceViewModel(int deviceId, int compId);
 
     }
 }

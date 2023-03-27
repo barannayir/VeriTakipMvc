@@ -68,11 +68,12 @@ namespace VeriTakipMvc.Data.Repository
             return deviceViewModels;
         }
 
-        public async Task<DeviceViewModel> GetDeviceViewModel(int deviceId)
+        public async Task<DeviceViewModel> GetDeviceViewModel(int deviceId, int compId)
         {
             var device = await _context.Devices.FindAsync(deviceId);
             var deviceData = await _context.DeviceDatas.FindAsync(deviceId);
-
+            if (device.CompanyId == compId)
+            {
             var deviceViewModel = new DeviceViewModel
             {
                 DeviceId = device.Id,
@@ -83,8 +84,9 @@ namespace VeriTakipMvc.Data.Repository
                 TemperatureC = deviceData?.TemperatureC ?? 0,
                 RelayStatus = deviceData?.RelayStatus ?? false
             };
-
             return deviceViewModel;
+            }
+            return new DeviceViewModel();
         }
         public Task UpdateDevice(Device device)
         {

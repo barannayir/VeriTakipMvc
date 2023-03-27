@@ -131,7 +131,7 @@
         console.log(deviceId);
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:44301/api/Home/TokenControl?com=' + deviceId, // API'nin adresini buraya yazabilirsin.
+            url: 'https://veritakip20230128141801.azurewebsites.net/api/Home/TokenControl?com=' + deviceId, // API'nin adresini buraya yazabilirsin.
             headers: {
                 'Authorization': 'Bearer ' + cookieValue // API'ye yetkilendirme bilgisini gönderiyoruz.
             },

@@ -38,10 +38,13 @@
     $('#toggleRelay').change(function () {
         var relayStatus = $(this).prop('checked') ? 'on' : 'off';
         console.log(relayStatus);
+        console.log(cookieValue);
+        console.log(@Model.DeviceId);
+
         // relayStatus değişkeni, switch'in yeni durumunu belirtir
                         $.ajax({
                         type: 'POST',
-                        url: 'https://localhost:44301/api/Home/CmdCreate', // API'nin adresini buraya yazabilirsin.
+                        url: 'https://veritakip20230128141801.azurewebsites.net/api/Home/CmdCreate', // API'nin adresini buraya yazabilirsin.
                         headers: {
                             'Authorization': 'Bearer ' + cookieValue,
                             'Content-Type': 'application/json'
